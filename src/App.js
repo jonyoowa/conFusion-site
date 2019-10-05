@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   render() {
-   return (
+    return (
       <div className="App">
         <Navbar dark color="primary">
           <div className="container">
