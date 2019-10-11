@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem,
     Button, Row, Col, Label } from 'reactstrap';
-    import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Control, Form, Errors } from 'react-redux-form';
 
 const required = (val) => val && val.length;
@@ -15,6 +15,12 @@ class Contact extends Component {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleBlur = (field) => () => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true },
+        });
     }
 
     handleSubmit(values) {
