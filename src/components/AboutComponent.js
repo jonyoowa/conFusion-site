@@ -1,33 +1,40 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { Fade, Stagger } from 'react-animation-components';
 
-function RenderLeader(leader) {
-    return (
-        <Media key={leader.id} className="mb-4">
-            <Media left className="mr-4">
-                <Media object src={leader.image} alt={leader.abbr} />
-            </Media>
-            <Media right>
-                <Media heading>
-                    <h3>{leader.name}</h3>
-                </Media>
-                <Media body>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                </Media>
-            </Media>
-        </Media>
-    );
+const RenderLeader = (props) => {
+    if (props.leader != null) {
+        const leader = props.leader;
+        return (
+            <Fade in exitOpacity={0.35}>
+                <div key={leader.id} >
+                    <Media tag="li">
+                        <Media left top>
+                            <Media object src={leader.image} alt={leader.name} />
+                        </Media>
+                        <Media body className="ml-4 mb-4 text-left">
+                            <Media heading>{leader.name}</Media>
+                            <p>{leader.designation}</p>
+                            <p>{leader.description}</p>
+                        </Media>
+                    </Media>
+                </div>
+            </Fade>
+        );
+    } else {
+        return (<div></div>);
+    }
 }
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
-            <Media tag="ul">
-                <Media tag="li">{RenderLeader(leader)}</Media>
-            </Media>
+            <Stagger in chunk={2} delay={250}>
+                <RenderLeader leader={leader} />
+            </Stagger>
         );
     });
 
